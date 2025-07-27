@@ -1,0 +1,41 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "嘉谷域 AI工作台",
+  "version": "1.7.9",
+  "identifier": "app.aiaw",
+  "build": {
+    "frontendDist": "../dist/spa",
+    "devUrl": "http://localhost:9005",
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "pnpm build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "嘉谷域 AI工作台",
+        "width": 1150,
+        "height": 750,
+        "resizable": true,
+        "fullscreen": false,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis"  // 👈 你只想构建 Windows 安装包的话，其它都可以删掉
+    ],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  },
+  "plugins": {}
+}
