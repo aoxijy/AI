@@ -27,7 +27,7 @@
   "bundle": {
     "active": true,
     "targets": [
-      "nsis"  // 👈 你只想构建 Windows 安装包的话，其它都可以删掉
+      "nsis"
     ],
     "icon": [
       "icons/32x32.png",
