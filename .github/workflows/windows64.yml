@@ -1,0 +1,45 @@
+name: 'Build Tauri for Windows'
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:  # ✅ 允许手动触发构建
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          cache: 'pnpm'
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install frontend dependencies
+        run: pnpm install
+
+      - name: Setup .env
+        run: copy .env.app .env.local
+        shell: cmd
+
+      - name: Build and publish Tauri app (Windows)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # 用于上传 release
+        with:
+          releaseId: ${{ github.event.release.id }}
